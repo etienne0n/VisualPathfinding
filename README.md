@@ -6,7 +6,7 @@ After that a robot will walk the shortest path between those two points.
 
 **Current State:**<br>
 JavaFX (Frontend):<br>
--Playground can be rendered
+-Playground can be rendered<br>
 -Mouse following field marker implemented
 <br>A-Star (Backend):<br>
 -implemented and tested
