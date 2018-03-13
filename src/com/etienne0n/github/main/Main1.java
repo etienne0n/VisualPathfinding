@@ -12,6 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Main1 extends Application {
@@ -35,8 +38,12 @@ public class Main1 extends Application {
 	
 	//boolean variables
 	
-	private boolean startSet = false;
-	private boolean finnishSet = false;
+	private boolean startIsSet = false;
+	private boolean targetIsSet = false;
+	
+	// start and target coordinates
+	private int bFieldStartX, bFieldStartY, bFieldTargetX, bFieldTargetY = 0;
+	
 	
 	
 	public static void main(String...args) {launch(args);}
@@ -59,30 +66,43 @@ public class Main1 extends Application {
 		stage.setScene(scene);
 		
 		Canvas backgroundCanvas = new Canvas(width, height);
-		Canvas foregroundCanvas = new Canvas(width, height);
+		Canvas robotCanvas = new Canvas(width, height);
+		Canvas textCanvas = new Canvas(width, height);
 		Canvas selectionCanvas = new Canvas(width, height);
-		root.getChildren().addAll(backgroundCanvas, foregroundCanvas, selectionCanvas);
+		
+		root.getChildren().addAll(backgroundCanvas, robotCanvas, textCanvas, selectionCanvas);
 		
 		GraphicsContext backgroundGC = backgroundCanvas.getGraphicsContext2D();
-		GraphicsContext foregroundGC = foregroundCanvas.getGraphicsContext2D();
+		GraphicsContext robotGC = robotCanvas.getGraphicsContext2D();
+		GraphicsContext textGC = textCanvas.getGraphicsContext2D();
 		GraphicsContext selectionGC = selectionCanvas.getGraphicsContext2D();
 		
+		// Menu Font
+		Font menuFont = Font.font("Consolas", FontWeight.BOLD, 28);
+		textGC.setFill(Color.GREEN);
+		textGC.setFont(menuFont);
+		textGC.setStroke(Color.BLACK);
+		textGC.setLineWidth(1.6);
+		
 		// Drawing the field into the canvas
-		draw(bField, backgroundGC);
+		drawingBooleanField(bField, backgroundGC);
 		
 		// Drawing the menu
-		
 		Sprite menu = new Sprite(MENU_IMAGE, 0, height - MENU_HEIGHT);
 		menu.render(backgroundGC);
 		
 		
-		// show stage and set it unresizable
+		// show stage and make it unresizable
 		stage.setResizable(false);
 		stage.show();
 		
 		
+		// "SELECT STARTING FIELD"
+		String startText = "Select a starting field. (Must be grass)";
 		
+
 		
+		fillText(textGC, startText, width / 10, height - MENU_HEIGHT + (MENU_HEIGHT / 5));
 		
 		
 		
@@ -111,7 +131,12 @@ public class Main1 extends Application {
 		
 
 	}
-	private void draw(boolean[][] bField, GraphicsContext graphicContext) {
+	private void fillText(GraphicsContext gc, String text, int x, int y) {
+		gc.fillText(text, x, y);
+		gc.strokeText(text, x, y);
+		
+	}
+	private void drawingBooleanField(boolean[][] bField, GraphicsContext graphicContext) {
 		
 		int height = bField.length;
 		int width = bField[0].length;
