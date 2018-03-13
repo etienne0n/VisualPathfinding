@@ -5,9 +5,9 @@ The Goal is that the "player" can select a start and a finish point on a map ful
 After that a robot will walk the shortest path between those two points.
 
 **Current State:**<br>
-JavaFX (Frontend):
+JavaFX (Frontend):<br>
 -Playground can be rendered
-A-Star (Backend):
+A-Star (Backend):<br>
 -implemented and tested
 
 
