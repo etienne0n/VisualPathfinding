@@ -5,7 +5,7 @@ The Goal is that the "player" can select a start and a target point on a map ful
 After that a robot will walk the shortest path between those two points.<br><br>
 
 This project uses a slightly modified version of <b>2DPlayground</b> which includes the A-Star algorithm that uses a slightly modified version of <b>GenericBinaryHeap</b>.<br>
-Both can be found in this repository.
+Both projects can be found in this repository.
 
 
 **Current State:**<br>
