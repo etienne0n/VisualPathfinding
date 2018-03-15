@@ -227,9 +227,20 @@ public final class BooleanFields {
 			MEDIUM_FIELD_1_ROW_7};
 	
 	
+	public static final boolean[][] getRandomField_8x8(){
+		return getRandomField(8, 8);
+	}
+	public static final boolean[][] getRandomField_12x8(){
+		return getRandomField(8, 12);
+	}
+	
+	public static final boolean[][] getRandomField_16x8(){
+		return getRandomField(8, 16);
+	}
+	
 	
 
-	public static final boolean[][] getRandomField_16x8() {
+	private static final boolean[][] getRandomField(int rows, int columns) {
 		assert (BIAS >= 0 && BIAS <= 1.0);
 		
 		boolean noDiagonalsConstraint = false;
@@ -239,20 +250,21 @@ public final class BooleanFields {
 		// n = columns * y-value + x-value
 		List<Integer> usedOrForbidden = new ArrayList<>();
 
-
-		boolean[][] field = { 
-				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
-				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
-				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
-				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
-				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
-				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
-				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
-				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T } };
-
-		int rows = field.length;
-		int columns = field[0].length;
-
+		
+//		int rows = 8;
+//		int columns = 16;
+		
+		
+		boolean[][] field = new boolean[rows][columns];
+		for(int r = 0; r < rows; r++) {
+			for(int c = 0; c < columns; c++) {
+				field[r][c] = true;
+			}
+		}
+		
+		
+		
+		
 		int fields = rows * columns;
 		// number of blocks := false cells is 1/3 of rows * columns
 		int blocks = fields / DIVISOR; // "(Integer)" (128 / 3) = 42
