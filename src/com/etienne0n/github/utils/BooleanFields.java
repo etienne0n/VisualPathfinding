@@ -233,21 +233,22 @@ public final class BooleanFields {
 		assert (BIAS >= 0 && BIAS <= 1.0);
 		
 		boolean noDiagonalsConstraint = false;
+		int noPathFound = 0;
 		
 		// Numbers of fields that are already in use!
 		// n = columns * y-value + x-value
 		List<Integer> usedOrForbidden = new ArrayList<>();
 
-		boolean[] row0 = { T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T };
-		boolean[] row1 = { T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T };
-		boolean[] row2 = { T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T };
-		boolean[] row3 = { T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T };
-		boolean[] row4 = { T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T };
-		boolean[] row5 = { T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T };
-		boolean[] row6 = { T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T };
-		boolean[] row7 = { T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T };
 
-		boolean[][] field = { row0, row1, row2, row3, row4, row5, row6, row7 };
+		boolean[][] field = { 
+				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
+				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
+				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
+				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
+				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
+				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
+				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T }, 
+				{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T } };
 
 		int rows = field.length;
 		int columns = field[0].length;
@@ -279,14 +280,14 @@ public final class BooleanFields {
 			 * -> index of columns
 			 * 
 			 */
-			int yPosBlock = nextBlock / columns;
-			int xPosBlock = nextBlock % columns;
+			int nextBlockY = nextBlock / columns;
+			int nextBlockX = nextBlock % columns;
 			
 
 			// get surrounding true cells
 
-			List<Integer> surroundingTrueCells = surroundingTrueCells(xPosBlock, yPosBlock, field);
-			List<Integer> surroundingFalseCells = surroundingFalseCells(xPosBlock, yPosBlock, field);
+			List<Integer> surroundingTrueCells = surroundingTrueCells(nextBlockX, nextBlockY, field);
+			List<Integer> surroundingFalseCells = surroundingFalseCells(nextBlockX, nextBlockY, field);
 			
 			
 			// Additional constraint *************************************************************************
@@ -336,44 +337,52 @@ public final class BooleanFields {
 				// and the y-pos?
 				int firstCellY = firstCell / columns;
 				
+				// set next block (temporarily) 
+				field[nextBlockY][nextBlockX] = false;
+				
 				// now check if there is a path to the other surrounding true cells
 				// create current playground
 				Playground current = Playgrounds.generatePlayground(field);
 				
-				for (int c : surroundingTrueCells) {
+			for (int c : surroundingTrueCells) {
 					int cX = c % columns;
 					int cY = c / columns;
+				
 					
 					if (!current.path(firstCellY, firstCellX, cY, cX)) {
-						System.out.println("no path");
+						field[nextBlockY][nextBlockX] = true;
+						noPathFound++;
 						path = false;
-						usedOrForbidden.add(columns * yPosBlock + xPosBlock);
-						break blocks;
+						usedOrForbidden.add(columns * nextBlockY + nextBlockX);
+						continue blocks;
 						
 					}
+	
 
 				} 
 				
-				if(!path) {continue blocks;}
+
+				if(path) {
+					blocks--;
+				}
 				
-				// if (path) {
-				field[yPosBlock][xPosBlock] = false;
-				blocks--;
-				// }
 				
-				usedOrForbidden.add(columns * yPosBlock + xPosBlock);
+				
+				
+				
+				usedOrForbidden.add(columns * nextBlockY + nextBlockX);
 				
 				
 			} else {
 
-				field[yPosBlock][xPosBlock] = false;
-				usedOrForbidden.add(columns * yPosBlock + xPosBlock);
+				field[nextBlockY][nextBlockX] = false;
+				usedOrForbidden.add(columns * nextBlockY + nextBlockX);
 				blocks--;
 
 			}
 			
 		}
-
+		System.out.println(noPathFound + " times no path found.");
 		return field;
 	}
 
