@@ -8,7 +8,7 @@ This project uses slightly modified versions of my Projects <b>2DPlayground</b> 
 Both projects can be found in this repository.
 
 **Project is made with Eclipse**<br>
-**Required Java-Version = 1.8 (usage of Streams and Lambas)**<br>
+**Required Java-Version = 1.8 (usage of Streams and Lambdas)**<br>
 
 **Current State:**<br>
 JavaFX:<br>
