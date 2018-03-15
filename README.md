@@ -12,6 +12,7 @@ Both projects can be found in this repository.
 JavaFX:<br>
 - Playground can be rendered<br>
 - Mouse following field marker implemented
+
 <br>Backend:<br>
 - A-Star implemented and tested<br>
 - 16x8 fields can be generated randomly (works, but sometimes a few bits of the passable terrain are isolated)
