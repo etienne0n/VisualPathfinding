@@ -17,7 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class Main1 extends Application {
+public class MainApp extends Application {
 	
 	
 	// PICTURE URIs
@@ -53,7 +53,7 @@ public class Main1 extends Application {
 	private static final int MENU_HEIGHT = 120;
 	
 	// Boolean Field
-	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.WIDE_FIELD_2_16x8;
+	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.MEDIUM_FIELD_1_12x8;
 	// CREATE A PLAYGROUND (needed for shortest paths)
 	private static final Playground PLAYGROUND = Playgrounds.generatePlayground(BOOLEAN_FIELD);
 	private static final int PLAYGROUND_WIDTH = PLAYGROUND.width();
@@ -140,8 +140,8 @@ public class Main1 extends Application {
 					// Clearing the selection graphics context 
 					selectionGC.clearRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
 					
-					double mouseX = m.getX();
-					double mouseY = m.getY();
+					double mouseX = m.getSceneX();
+					double mouseY = m.getSceneY();
 					
 					int bFieldXPos = (int) mouseX/PICTURE_WIDTH;
 					int bFieldYPos = (int) mouseY/PICTURE_HEIGHT;

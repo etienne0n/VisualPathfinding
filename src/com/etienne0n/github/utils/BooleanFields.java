@@ -23,10 +23,10 @@ public final class BooleanFields {
 
 	private static boolean T = true;
 	private static boolean F = false;
+	
+	
+	
 
-	// 8 x 8
-	// -------------------------------------------------------------
-	// Parcour field
 
 	private static final boolean[] PARCOUR_ROW_0 = { T, T, T, T, T, T, T, T };
 	private static final boolean[] PARCOUR_ROW_1 = { F, F, F, F, F, F, F, T };
@@ -177,6 +177,57 @@ public final class BooleanFields {
 	 */
 	public static final boolean[][] WIDE_FIELD_2_16x8 = { WIDE2_ROW_0, WIDE2_ROW_1, WIDE2_ROW_2, WIDE2_ROW_3,
 			WIDE2_ROW_4, WIDE2_ROW_5, WIDE2_ROW_6, WIDE2_ROW_7, };
+	
+	
+	
+	
+	private static final boolean[] MEDIUM_FIELD_1_ROW_0 = {T,T,F,T,F,F,F,F,T,F,T,T};
+	private static final boolean[] MEDIUM_FIELD_1_ROW_1 = {T,T,F,T,T,F,T,F,T,F,T,F};
+	private static final boolean[] MEDIUM_FIELD_1_ROW_2 = {T,F,F,F,T,T,T,T,T,F,T,F};
+	private static final boolean[] MEDIUM_FIELD_1_ROW_3 = {T,T,F,T,T,F,T,T,T,F,T,T};
+	private static final boolean[] MEDIUM_FIELD_1_ROW_4 = {T,T,T,T,F,F,F,T,F,F,F,T};
+	private static final boolean[] MEDIUM_FIELD_1_ROW_5 = {T,F,F,T,T,F,T,T,T,T,F,T};
+	private static final boolean[] MEDIUM_FIELD_1_ROW_6 = {T,F,F,T,F,F,F,T,F,T,T,T};
+	private static final boolean[] MEDIUM_FIELD_1_ROW_7 = {T,T,T,T,T,T,T,T,F,T,F,T};
+	
+	/**
+	 * 12x8 Field<br>
+	 * <br>
+	 * 
+	 * Sketch:<br>
+	 * ------------------------------------ <br>
+	 * <b><tt>
+	 * . = true 
+	 * <br>
+	 * F = false 
+	 * <br></b></tt>
+	 * ------------------------------------------------------------------------ <br>
+	 * <blockquote><b><tt>
+	 * . . F . F F F F . F . . <br>
+	 * . . F . . F . F . F . F <br>
+	 * . F F F . . . . . F . F <br>
+	 * . . F . . F . . . F . . <br>
+	 * . . . . F F F . F F F . <br>
+	 * . F F . . F . . . . F . <br>
+	 * . F F . F F F . F . . . <br>
+	 * . . . . . . . . F . F . <br>
+	 * </blockquote></b></tt>
+	 * 
+	 * ------------------------------------------------------------------------ <br>
+	 * 
+	 */
+	public static final boolean[][] MEDIUM_FIELD_1_12x8 = {
+			MEDIUM_FIELD_1_ROW_0,
+			MEDIUM_FIELD_1_ROW_1,
+			MEDIUM_FIELD_1_ROW_2,
+			MEDIUM_FIELD_1_ROW_3,
+			MEDIUM_FIELD_1_ROW_4,
+			MEDIUM_FIELD_1_ROW_5,
+			MEDIUM_FIELD_1_ROW_6,
+			MEDIUM_FIELD_1_ROW_7};
+	
+	
+	
 
 	public static final boolean[][] getRandomField_16x8() {
 		assert (BIAS >= 0 && BIAS <= 1.0);
@@ -257,11 +308,14 @@ public final class BooleanFields {
 			noDiagonalsConstraint = (surroundingFalseCells.isEmpty())
 					|| (
 					(surroundingFalseCells.contains(no) ? surroundingFalseCells.contains(n) || surroundingFalseCells.contains(o) : 
-								!surroundingFalseCells.contains(no)) &&
+								!surroundingFalseCells.contains(no)) 
+					&&
 					(surroundingFalseCells.contains(nw) ? surroundingFalseCells.contains(n) || surroundingFalseCells.contains(w) : 
-								!surroundingFalseCells.contains(nw)) &&
+								!surroundingFalseCells.contains(nw)) 
+					&&
 					(surroundingFalseCells.contains(so) ? surroundingFalseCells.contains(s) || surroundingFalseCells.contains(o) : 
-								!surroundingFalseCells.contains(so)) &&
+								!surroundingFalseCells.contains(so)) 
+					&&
 					(surroundingFalseCells.contains(sw) ? surroundingFalseCells.contains(s) || surroundingFalseCells.contains(w) : 
 								!surroundingFalseCells.contains(sw))
 					);
