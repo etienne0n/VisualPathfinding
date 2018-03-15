@@ -19,6 +19,7 @@ public final class BooleanFields {
 	 * Number of blocks = number of all cells in the field / DIVISOR
 	 */
 	private static final int DIVISOR = 3;
+	
 	private static final double BIAS = 0.9; // must be 0.0 <= BIAS <= 1.0
 
 	private static boolean T = true;
