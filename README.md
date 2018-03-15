@@ -4,7 +4,7 @@ This project aims for a visual representation of the **result(!)** of the A-Star
 The Goal is that the "player" can select a start and a target point on a map full of obstacles.
 After that a robot will walk the shortest path between those two points.
 
-This project uses a slightly modified version of <b>2DPlayground</b> which includes the A-Star algorithm that uses a slightly modified version of <b>GenericBinaryHeap</b>.<br>
+This project uses slightly modified versions of my Projects <b>2DPlayground</b> which includes the A-Star algorithm and <b>GenericBinaryHeap</b>.<br>
 Both projects can be found in this repository.
 
 **Project is made with Eclipse**<br>
