@@ -22,21 +22,21 @@ public class Main1 extends Application {
 	
 	// PICTURE URIs
 	
-	private static final String WALL_FILE = "file:pictures/wall_2_100x100.jpg";
-	private static final String GRASS_FILE = "file:pictures/grass_100x100.jpg";
-	private static final String MENU_FILE = "file:pictures/menu_texture_1600x120.jpg";
-	private static final String ROBOT_FILE = "file:pictures/robot.jpg";
-	private static final String RED_CROSS_FILE = "file:pictures/redcross_100x100.png";
-	private static final String GREEN_CIRCLE_FILE = "file:pictures/green_circle_100_100.png";
+	private static final String WALL_URI = "file:pictures/wall_2_100x100.jpg";
+	private static final String GRASS_URI = "file:pictures/grass_100x100.jpg";
+	private static final String MENU_URI = "file:pictures/menu_texture_1600x120.jpg";
+	private static final String ROBOT_URI = "file:pictures/robot.jpg";
+	private static final String RED_CROSS_URI = "file:pictures/redcross_100x100.png";
+	private static final String GREEN_CIRCLE_URI = "file:pictures/green_circle_100_100.png";
 	
 	// IMAGES
 	
-	private static final Image WALL_IMAGE = new Image(WALL_FILE);
-	private static final Image GRASS_IMAGE = new Image(GRASS_FILE);
-	private static final Image MENU_IMAGE = new Image(MENU_FILE);
-	private static final Image ROBOT_IMAGE = new Image(ROBOT_FILE);
-	private static final Image RED_CROSS_IMAGE = new Image(RED_CROSS_FILE);
-	private static final Image GREEN_CIRCLE_IMAGE = new Image(GREEN_CIRCLE_FILE);
+	private static final Image WALL_IMAGE = new Image(WALL_URI);
+	private static final Image GRASS_IMAGE = new Image(GRASS_URI);
+	private static final Image MENU_IMAGE = new Image(MENU_URI);
+	private static final Image ROBOT_IMAGE = new Image(ROBOT_URI);
+	private static final Image RED_CROSS_IMAGE = new Image(RED_CROSS_URI);
+	private static final Image GREEN_CIRCLE_IMAGE = new Image(GREEN_CIRCLE_URI);
 	//SPRITES
 	private static final Sprite GRASS_SPRITE = new Sprite(GRASS_IMAGE);
 	private static final Sprite WALL_SPRITE = new Sprite(WALL_IMAGE);
@@ -48,13 +48,12 @@ public class Main1 extends Application {
 	// PICTURE SIZE
 	private static final int PICTURE_WIDTH = 100;
 	private static final int PICTURE_HEIGHT = 100;
-	
-	
+
 	
 	private static final int MENU_HEIGHT = 120;
 	
 	// Boolean Field
-	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.WIDE_FIELD_16x8;
+	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.WIDE_FIELD_2_16x8;
 	// CREATE A PLAYGROUND (needed for shortest paths)
 	private static final Playground PLAYGROUND = Playgrounds.generatePlayground(BOOLEAN_FIELD);
 	private static final int PLAYGROUND_WIDTH = PLAYGROUND.width();
@@ -62,8 +61,8 @@ public class Main1 extends Application {
 	
 	// scene width and height
 	
-	private static final int WIDTH = PLAYGROUND_WIDTH * PICTURE_WIDTH;
-	private static final int HEIGHT = PLAYGROUND_HEIGHT * PICTURE_HEIGHT + MENU_HEIGHT;
+	private static final int SCENE_WIDTH = PLAYGROUND_WIDTH * PICTURE_WIDTH;
+	private static final int SCENE_HEIGHT = PLAYGROUND_HEIGHT * PICTURE_HEIGHT + MENU_HEIGHT;
 	
 	//boolean variables
 	
@@ -79,6 +78,7 @@ public class Main1 extends Application {
 	
 	
 	public static void main(String...args) {launch(args);}
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 	
@@ -87,10 +87,10 @@ public class Main1 extends Application {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		
-		Canvas backgroundCanvas = new Canvas(WIDTH, HEIGHT);
-		Canvas robotCanvas = new Canvas(WIDTH, HEIGHT);
-		Canvas textCanvas = new Canvas(WIDTH, HEIGHT);
-		Canvas selectionCanvas = new Canvas(WIDTH, HEIGHT);
+		Canvas backgroundCanvas = new Canvas(SCENE_WIDTH, SCENE_HEIGHT);
+		Canvas robotCanvas = new Canvas(SCENE_WIDTH, SCENE_HEIGHT);
+		Canvas textCanvas = new Canvas(SCENE_WIDTH, SCENE_HEIGHT);
+		Canvas selectionCanvas = new Canvas(SCENE_WIDTH, SCENE_HEIGHT);
 		
 		root.getChildren().addAll(backgroundCanvas, robotCanvas, textCanvas, selectionCanvas);
 		
@@ -111,7 +111,7 @@ public class Main1 extends Application {
 		
 		// Drawing the menu
 
-		MENU_SPRITE.setPosition(0, HEIGHT - MENU_HEIGHT);
+		MENU_SPRITE.setPosition(0, SCENE_HEIGHT - MENU_HEIGHT);
 		MENU_SPRITE.render(backgroundGC);
 		
 		
@@ -138,25 +138,26 @@ public class Main1 extends Application {
 				
 				scene.setOnMouseMoved(m -> {
 					// Clearing the selection graphics context 
-					selectionGC.clearRect(0, 0, WIDTH, HEIGHT);
+					selectionGC.clearRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
 					
 					double mouseX = m.getX();
 					double mouseY = m.getY();
 					
-					int X_POS_IN_BFIELD = (int)mouseX/PICTURE_WIDTH;
-					int Y_POS_IN_BFIELD = (int)mouseY/PICTURE_HEIGHT;
+					int bFieldXPos = (int) mouseX/PICTURE_WIDTH;
+					int bFieldYPos = (int) mouseY/PICTURE_HEIGHT;
 					
-					// not out of bounds?
+					//out of bounds?
+					boolean outOfBounds = 
+							bFieldXPos < 0 || 
+							bFieldXPos > PLAYGROUND_WIDTH - 1 || 
+							bFieldYPos < 0 || 
+							bFieldYPos > PLAYGROUND_HEIGHT - 1;
 					
-					boolean xOutOfBounds = X_POS_IN_BFIELD < 0 || X_POS_IN_BFIELD > PLAYGROUND_WIDTH - 1;
-					boolean yOutOfBounds = Y_POS_IN_BFIELD < 0 || Y_POS_IN_BFIELD > PLAYGROUND_HEIGHT - 1;
-					boolean outOfBounds = xOutOfBounds || yOutOfBounds;
-					
-					double drawX = X_POS_IN_BFIELD * PICTURE_WIDTH;
-					double drawY = Y_POS_IN_BFIELD * PICTURE_HEIGHT;
+					double drawX = bFieldXPos * PICTURE_WIDTH;
+					double drawY = bFieldYPos * PICTURE_HEIGHT;
 					
 					if(!outOfBounds) {
-						if(BOOLEAN_FIELD[Y_POS_IN_BFIELD][X_POS_IN_BFIELD]) {
+						if(BOOLEAN_FIELD[bFieldYPos][bFieldXPos]) {
 							GREEN_CIRCLE_SPRITE.setPosition(drawX, drawY);
 							GREEN_CIRCLE_SPRITE.render(selectionGC);
 						}else {
@@ -179,8 +180,8 @@ public class Main1 extends Application {
 
 	}
 	private void write(GraphicsContext gc, String text) {
-		gc.clearRect(0, 0, WIDTH, HEIGHT);
-		fillText(gc, text, WIDTH / 10, HEIGHT - MENU_HEIGHT + (MENU_HEIGHT / 5));
+		gc.clearRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
+		fillText(gc, text, SCENE_WIDTH / 10, SCENE_HEIGHT - MENU_HEIGHT + (MENU_HEIGHT / 5));
 		
 	}
 	private void fillText(GraphicsContext gc, String text, int x, int y) {
@@ -197,10 +198,8 @@ public class Main1 extends Application {
 			for(int c = 0; c < width; c++) {
 				Sprite sprite;
 				if(bField[r][c]) {
-					
 					sprite = GRASS_SPRITE;
 				}else {
-					
 					sprite = WALL_SPRITE;
 				}
 				

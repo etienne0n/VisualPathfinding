@@ -3,8 +3,6 @@ package com.etienne0n.github.astar;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.etienne0n.github.exceptions.NoPathException;
-
 class PlaygroundImpl implements Playground {
 	
 	private final boolean [][] playground;
@@ -60,7 +58,7 @@ class PlaygroundImpl implements Playground {
 	}
 
 	@Override
-	public synchronized List<Integer[]> shortestPath(int row1, int col1, int row2, int col2) {
+	public List<Integer[]> shortestPath(int row1, int col1, int row2, int col2) {
 		
 		if(row1 >= height || row2 >= height || col1 >= width || col2 >= width) {
 			throw new IllegalArgumentException("The coordinates you want to access are out of bounds of this playground.");
@@ -78,7 +76,7 @@ class PlaygroundImpl implements Playground {
 		
 		AStar aStar = new AStar(tileField, from, to);
 		if(!aStar.shortestPath()) {
-			throw new NoPathException("No path found.");
+			return null;
 		}
 		List<Integer[]> retList = new ArrayList<>();
 		//System.out.println("AStar finished!");
@@ -96,6 +94,20 @@ class PlaygroundImpl implements Playground {
 		
 		
 		return retList;
+		
+	}
+
+	@Override
+	public boolean path(int row1, int col1, int row2, int col2) {
+		if(row1 >= height || row2 >= height || col1 >= width || col2 >= width) {
+			throw new IllegalArgumentException("The coordinates you want to access are out of bounds of this playground.");
+		}
+		
+		Tile from = tileField[row1][col1];
+		Tile to = tileField[row2][col2];
+		
+		AStar aStar = new AStar(tileField, from, to);
+		return aStar.shortestPath();
 		
 	}
 

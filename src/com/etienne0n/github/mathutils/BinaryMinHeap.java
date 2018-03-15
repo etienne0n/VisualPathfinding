@@ -106,7 +106,7 @@ public class BinaryMinHeap<T extends Comparable<? super T>> {
 		return heapList.contains(o);
 	}
 	public boolean isEmpty() {
-		return heapList.isEmpty();
+		return currentSize == 0;
 	}
 
 	public void decreaseKey(T elem) {

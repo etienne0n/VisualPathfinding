@@ -43,12 +43,23 @@ public interface Playground {
 	/**
 	 * Calculates the shortest Path between two coordinates with the A*-Algorithm.<br>
 	 * 
-	 * @param row1 the row of the first coordinate.
-	 * @param col1 the column of the first coordinate.
-	 * @param row2 the row of the second coordinate.
-	 * @param col2 the column of the second coordinate.
-	 * @return
+	 * @param row1 the row of the first coordinate
+	 * @param col1 the column of the first coordinate
+	 * @param row2 the row of the second coordinate
+	 * @param col2 the column of the second coordinate
+	 * @return a list of integer arrays with length 2 where the first value corresponds to a column (x-value)<br>
+	 * and the second value corresponds to a row (y-value).<br>
+	 * The list from the first to the last element represents the shortest path between the two given coordinates.
 	 */
 	public List<Integer[]> shortestPath(int row1, int col1, int row2, int col2);
+	/**
+	 * Calculates if there is a path between two coordinates with the A*-Algorithem.
+	 * @param row1 the row of the first coordinate
+	 * @param col1 the column of the first coordinate
+	 * @param row2 the row of the second coordinate
+	 * @param col2 column of the second coordinate
+	 * @return <b>{@code true}</b> if there is a path. <b>{@code false}</b> if there is no path.
+	 */
+	public boolean path(int row1, int col1, int row2, int col2);
 	
 }

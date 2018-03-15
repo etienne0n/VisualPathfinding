@@ -62,15 +62,17 @@ class AStar{
 		int lowerYBound = yTile == 0 ? yTile : yTile - 1;
 		int upperXBound = xTile == width - 1 ? xTile : xTile + 1;
 		int upperYBound = yTile == height - 1 ? yTile : yTile + 1;
-		
+	
 		for(int y = lowerYBound; y <= upperYBound; y++) {
 			for(int x = lowerXBound; x <= upperXBound; x++) {
 				
 				boolean sameTile = y == yTile && x == xTile;
 				boolean diagonal = y != yTile && x != xTile;
 				
-			// if the path can be diagonal just remove the "!diagonal" statement
-				if(field[y][x] != null && !diagonal && !sameTile && !closedList.contains(field[y][x])) {
+				if(diagonal || sameTile || field[y][x] == null) {continue;}
+				
+			
+				if(!closedList.contains(field[y][x])) {
 					Tile tile = field[y][x];
 					
 					int tentativeG = predecessor.getGDistance() + (diagonal ? DIAGONAL_DISTANCE : HORIZONTAL_VERTICAL_DISTANCE);
