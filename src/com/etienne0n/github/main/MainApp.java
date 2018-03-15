@@ -53,7 +53,8 @@ public class MainApp extends Application {
 	private static final int MENU_HEIGHT = 120;
 	
 	// Boolean Field
-	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.getRandomField_8x8();
+	
+	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.getRandomField_12x8();
 	// CREATE A PLAYGROUND (needed for shortest paths)
 	private static final Playground PLAYGROUND = Playgrounds.generatePlayground(BOOLEAN_FIELD);
 	private static final int PLAYGROUND_WIDTH = PLAYGROUND.width();

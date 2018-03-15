@@ -250,11 +250,6 @@ public final class BooleanFields {
 		// n = columns * y-value + x-value
 		List<Integer> usedOrForbidden = new ArrayList<>();
 
-		
-//		int rows = 8;
-//		int columns = 16;
-		
-		
 		boolean[][] field = new boolean[rows][columns];
 		for(int r = 0; r < rows; r++) {
 			for(int c = 0; c < columns; c++) {
@@ -262,9 +257,7 @@ public final class BooleanFields {
 			}
 		}
 		
-		
-		
-		
+	
 		int fields = rows * columns;
 		// number of blocks := false cells is 1/3 of rows * columns
 		int blocks = fields / DIVISOR; // "(Integer)" (128 / 3) = 42
@@ -272,17 +265,13 @@ public final class BooleanFields {
 		blocks:
 		while (blocks > 0) {
 			
-			
 			int nextBlock;
 
-			
-			
 			do {
 				nextBlock = (int) (Math.random() * (fields - 1 + BIAS));
 				
 			} while (usedOrForbidden.contains(nextBlock));
 		
-
 			/*
 			 * the number of a field (0-128) is 16 * y-value + x-value. (number of columns =
 			 * 16) Therefore in the other direction if you have the number 35 for example
@@ -295,7 +284,6 @@ public final class BooleanFields {
 			int nextBlockY = nextBlock / columns;
 			int nextBlockX = nextBlock % columns;
 			
-
 			// get surrounding true cells
 
 			List<Integer> surroundingTrueCells = surroundingTrueCells(nextBlockX, nextBlockY, field);
@@ -335,8 +323,6 @@ public final class BooleanFields {
 			if(!noDiagonalsConstraint) {continue;}
 			//************************************************************************************************
 			
-			
-
 			// is there a path between all those cells?
 
 			// is there more than one surrounding true cell?
@@ -360,7 +346,6 @@ public final class BooleanFields {
 					int cX = c % columns;
 					int cY = c / columns;
 				
-					
 					if (!current.path(firstCellY, firstCellX, cY, cX)) {
 						field[nextBlockY][nextBlockX] = true;
 						noPathFound++;
@@ -369,21 +354,13 @@ public final class BooleanFields {
 						continue blocks;
 						
 					}
-	
-
 				} 
-				
-
+			
 				if(path) {
 					blocks--;
 				}
 				
-				
-				
-				
-				
 				usedOrForbidden.add(columns * nextBlockY + nextBlockX);
-				
 				
 			} else {
 
