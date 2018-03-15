@@ -15,7 +15,7 @@ JavaFX:<br>
 
 <br>Backend:<br>
 - A-Star implemented and tested<br>
-- levelgenerator for different sizes (8x8, 12x8 and 16x8). Levelgenerator uses A*-Star.
+- levelgenerator for different sizes (8x8, 12x8 and 16x8). Levelgenerator uses A*-Star. Implemented and tested visually.
 
 
 
