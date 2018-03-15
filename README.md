@@ -15,6 +15,6 @@ JavaFX:<br>
 
 <br>Backend:<br>
 - A-Star implemented and tested<br>
-- 16x8 fields can be generated randomly (works!)
+- 16x8 fields can be generated randomly. Level generator uses A*-Star.
 
 
