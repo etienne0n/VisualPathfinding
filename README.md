@@ -11,9 +11,13 @@ Both projects can be found in this repository.
 **Required Java-Version = 1.8 (usage of Streams and Lambdas)**<br>
 
 **Current State:**<br>
+
+**<i><b>project finished</i></b><br>
+
 JavaFX:<br>
 - Playground can be rendered<br>
-- Mouse following field marker implemented
+- Mouse following field marker implemented <br>
+- Robot can be placed and can drive to the marked target
 
 <br>Backend:<br>
 - A-Star implemented and tested<br>
