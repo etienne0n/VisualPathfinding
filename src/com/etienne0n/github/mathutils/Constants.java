@@ -9,4 +9,8 @@ public final class Constants {
 	public static final int DISTANCE_DIFF = Math.abs(HORIZONTAL_VERTICAL_DISTANCE - DIAGONAL_DISTANCE);
 	public static final double ROBOT_VELOCITY = 650.0;
 	
+	
+	public static final int SPRITE_STANDARD_HEIGHT = 42;
+	public static final int SPRITE_STANDARD_WIDTH = SPRITE_STANDARD_HEIGHT;
+	
 }

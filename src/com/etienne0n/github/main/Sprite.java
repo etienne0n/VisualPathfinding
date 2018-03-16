@@ -1,5 +1,7 @@
 package com.etienne0n.github.main;
 
+import com.etienne0n.github.mathutils.Constants;
+
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -19,6 +21,9 @@ public class Sprite {
 	private double yVel;
 	private double width;
 	private double height;
+	
+	
+	
 	private boolean mobile = true;
 	
 	// CONSTRUCTION
@@ -31,13 +36,7 @@ public class Sprite {
 	 * @param yVel the y-velocity of the sprite
 	 */
 	public Sprite(Image image, double xPos, double yPos, double xVel, double yVel) {
-		this.image = image;
-		this.width = image.getWidth();
-		this.height = image.getHeight();
-		this.xPos = xPos;
-		this.yPos = yPos;
-		this.xVel = xVel;
-		this.yVel = yVel;
+		this(image, Constants.SPRITE_STANDARD_WIDTH, Constants.SPRITE_STANDARD_HEIGHT, xPos, yPos, xVel, yVel);
 	}
 	/**
 	 * Construct a new sprite.
@@ -55,8 +54,38 @@ public class Sprite {
 	public Sprite(Image image) {
 		this(image, 0.0, 0.0);
 	}
+	/**
+	 * Construct a new sprite.
+	 * @param image
+	 * @param width the width of the sprite
+	 * @param height the height of the sprite
+	 */
+	public Sprite(Image image, int width, int height) {
+		this(image, width, height, 0.0, 0.0, 0.0, 0.0);
+	}
+	
+	private Sprite(Image image, int width, int height, double xPos, double yPos, double xVel, double yVel) {
+		this.image = image;
+		this.width = width;
+		this.height = height;
+		this.xPos = xPos;
+		this.yPos = yPos;
+		this.xVel = xVel;
+		this.yVel = yVel;
+	}
+	
 	
 	// SETTERS
+	
+	
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	
+	
 	/**
 	 * sets new coordinates for this sprite.<br>
 	 * @param xPos the new x-position
@@ -138,7 +167,8 @@ public class Sprite {
 	 * the sprite will be rendered.
 	 */
 	public void render(GraphicsContext gc) {
-		gc.drawImage(image, xPos, yPos);
+		//gc.drawImage(image, xPos, yPos);
+		gc.drawImage(image, xPos, yPos, width, height);
 		
 	}
 	/**

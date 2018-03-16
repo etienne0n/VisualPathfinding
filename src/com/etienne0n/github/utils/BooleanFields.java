@@ -237,6 +237,9 @@ public final class BooleanFields {
 	public static final boolean[][] getRandomField_16x8(){
 		return getRandomField(8, 16);
 	}
+	public static final boolean[][] getRandomField_20x12(){
+		return getRandomField(12,20);
+	}
 	
 	
 

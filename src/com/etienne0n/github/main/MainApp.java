@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.etienne0n.github.astar.Playground;
 import com.etienne0n.github.astar.Playgrounds;
+import com.etienne0n.github.mathutils.Constants;
 import com.etienne0n.github.utils.BooleanFields;
 import com.etienne0n.github.values.Direction;
 
@@ -32,6 +33,17 @@ public class MainApp extends Application {
 	private static final String RED_CROSS_URI = "file:pictures/redcross_100x100.png";
 	private static final String GREEN_CIRCLE_URI = "file:pictures/green_circle_100_100.png";
 
+	
+	// Boolean Field
+
+	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.getRandomField_20x12();
+	// CREATE A PLAYGROUND (needed for shortest paths)
+	private static final Playground PLAYGROUND = Playgrounds.generatePlayground(BOOLEAN_FIELD);
+	private static final int PLAYGROUND_WIDTH = PLAYGROUND.width();
+	private static final int PLAYGROUND_HEIGHT = PLAYGROUND.height();
+	
+	private static final int MENU_HEIGHT = (int) (Constants.SPRITE_STANDARD_HEIGHT * 1.2);
+	
 	// IMAGES
 
 	private static final Image WALL_IMAGE = new Image(WALL_URI);
@@ -43,24 +55,18 @@ public class MainApp extends Application {
 	// SPRITES
 	private static final Sprite GRASS_SPRITE = new Sprite(GRASS_IMAGE);
 	private static final Sprite WALL_SPRITE = new Sprite(WALL_IMAGE);
-	private static final Sprite MENU_SPRITE = new Sprite(MENU_IMAGE);
 	private static final Sprite ROBOT_SPRITE = new Sprite(ROBOT_IMAGE);
 	private static final Sprite RED_CROSS_SPRITE = new Sprite(RED_CROSS_IMAGE);
 	private static final Sprite GREEN_CIRCLE_SPRITE = new Sprite(GREEN_CIRCLE_IMAGE);
+	private static final Sprite MENU_SPRITE = new Sprite(MENU_IMAGE, BOOLEAN_FIELD[0].length * Constants.SPRITE_STANDARD_WIDTH, MENU_HEIGHT);
 
 	// PICTURE SIZE
-	private static final int PICTURE_WIDTH = 100;
-	private static final int PICTURE_HEIGHT = 100;
+	private static final int PICTURE_WIDTH = Constants.SPRITE_STANDARD_WIDTH;
+	private static final int PICTURE_HEIGHT = Constants.SPRITE_STANDARD_HEIGHT;
 
-	private static final int MENU_HEIGHT = 120;
+	
 
-	// Boolean Field
-
-	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.getRandomField_12x8();
-	// CREATE A PLAYGROUND (needed for shortest paths)
-	private static final Playground PLAYGROUND = Playgrounds.generatePlayground(BOOLEAN_FIELD);
-	private static final int PLAYGROUND_WIDTH = PLAYGROUND.width();
-	private static final int PLAYGROUND_HEIGHT = PLAYGROUND.height();
+	
 
 	// scene width and height
 
@@ -119,11 +125,11 @@ public class MainApp extends Application {
 		GraphicsContext selectionGC = selectionCanvas.getGraphicsContext2D();
 
 		// Menu Font
-		Font menuFont = Font.font("Consolas", FontWeight.BOLD, 28);
+		Font menuFont = Font.font("Consolas", FontWeight.BOLD, Constants.SPRITE_STANDARD_HEIGHT / 3);
 		textGC.setFill(Color.GREEN);
 		textGC.setFont(menuFont);
 		textGC.setStroke(Color.BLACK);
-		textGC.setLineWidth(1.6);
+		textGC.setLineWidth(1.1);
 
 		// Drawing the field into the canvas
 		drawingBooleanField(BOOLEAN_FIELD, backgroundGC);
@@ -315,7 +321,7 @@ public class MainApp extends Application {
 
 	private void write(GraphicsContext gc, String text) {
 		gc.clearRect(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
-		fillText(gc, text, SCENE_WIDTH / 10, SCENE_HEIGHT - MENU_HEIGHT + (MENU_HEIGHT / 5));
+		fillText(gc, text, SCENE_WIDTH / 10, SCENE_HEIGHT - MENU_HEIGHT + (MENU_HEIGHT / 2));
 
 	}
 
