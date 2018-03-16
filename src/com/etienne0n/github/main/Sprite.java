@@ -74,10 +74,39 @@ public class Sprite {
 	public void setVelocity(double xVel, double yVel) {
 		if(mobile) {
 			this.xVel = xVel;
-			this.yPos = yVel;
+			this.yVel = yVel;
 		}
 		
 	}
+	/**
+	 * Returns the current x-velocity
+	 * @return the current x-velocity
+	 */
+	public double getXVelocity() {
+		return xVel;
+	}
+	/**
+	 * Returns the current y-velocity
+	 * @return the current y-velocity
+	 */
+	public double getYVelocity() {
+		return yVel;
+	}
+	/**
+	 * Returns the current x-position
+	 * @return the current x-position
+	 */
+	public double getXPosition() {
+		return xPos;
+	}
+	/**
+	 * Returns the current y-position
+	 * @return the current y-position
+	 */
+	public double getYPosition() {
+		return yPos;
+	}
+	
 	/**
 	 * accelerates (or decelerates) this sprite.
 	 * @param xVel delta-x-velocity

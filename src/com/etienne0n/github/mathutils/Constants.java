@@ -7,5 +7,6 @@ public final class Constants {
 	public static final int HORIZONTAL_VERTICAL_DISTANCE = 100;
 	public static final int DIAGONAL_DISTANCE = 141;
 	public static final int DISTANCE_DIFF = Math.abs(HORIZONTAL_VERTICAL_DISTANCE - DIAGONAL_DISTANCE);
+	public static final double ROBOT_VELOCITY = 650.0;
 	
 }
