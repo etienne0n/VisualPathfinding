@@ -12,7 +12,7 @@ Both projects can be found in this repository.
 
 **Current State:**<br>
 
-**<i><b>project finished</i></b><br>
+<i><b>**project finished**</i></b><br>
 
 JavaFX:<br>
 - Playground can be rendered<br>
