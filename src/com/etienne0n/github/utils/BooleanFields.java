@@ -347,7 +347,7 @@ public final class BooleanFields {
 				
 					if (!current.path(firstCellY, firstCellX, cY, cX)) {
 						field[nextBlockY][nextBlockX] = true;
-						noPathFound++;
+
 						path = false;
 						usedOrForbidden.add(columns * nextBlockY + nextBlockX);
 						continue blocks;
