@@ -244,7 +244,6 @@ public final class BooleanFields {
 		assert (BIAS >= 0 && BIAS <= 1.0);
 		
 		boolean noDiagonalsConstraint = false;
-		int noPathFound = 0;
 		
 		// Numbers of fields that are already in use!
 		// n = columns * y-value + x-value
@@ -371,7 +370,7 @@ public final class BooleanFields {
 			}
 			
 		}
-		System.out.println(noPathFound + " times no path found.");
+		
 		return field;
 	}
 
