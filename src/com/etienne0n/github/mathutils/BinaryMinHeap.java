@@ -9,7 +9,7 @@ import java.util.List;
  * http://interactivepython.org/runestone/static/pythonds/Trees/BinaryHeapImplementation.html
  */
 /**
- * - A simple BinaryHeap where the heap structure is represented as a single
+ * - A simple generic BinaryHeap where the heap structure is represented as a single
  * list.<br>
  * - The children of a node at index i are at the indices 2i and 2i+1.<br>
  * - The current root is always at index = 1. <br>
@@ -21,7 +21,8 @@ import java.util.List;
  * @author Etienne Onasch
  *
  */
-public class BinaryMinHeap<T extends Comparable<? super T>> {
+public class BinaryMinHeap<T extends Comparable<? super T>> { 
+	
 	private List<T> heapList = new ArrayList<>();
 	private int currentSize;
 
