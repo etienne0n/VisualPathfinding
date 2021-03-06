@@ -1,16 +1,24 @@
 package com.etienne0n.github.playground;
 
 
-import static com.etienne0n.github.mathutils.Constants.HORIZONTAL_VERTICAL_DISTANCE;
-import static com.etienne0n.github.mathutils.Constants.DIAGONAL_DISTANCE;
-import static com.etienne0n.github.mathutils.Constants.INITIAL_DISTANCE;
+import static com.etienne0n.github.mathutils.Constants.*;
 
 import com.etienne0n.github.mathutils.Constants;
 
 class Tile implements Comparable<Tile>{
 	private final int x;
 	private final int y;
+	/**
+	 * current distance from start vertex/tile
+	 */
 	private int gDistance = INITIAL_DISTANCE;
+	/**
+	 * estimated distance to target vertex/tile.
+	 * IMPORTANT!: <br>
+	 * Must never be larger than the actual distance to target.<br>
+	 * If 'squared distances' are used, gDistance must also be squared.
+	 * 
+	 */
 	private int hDistance = INITIAL_DISTANCE;
 	
 	private Tile predecessor = null;
@@ -81,6 +89,17 @@ class Tile implements Comparable<Tile>{
 		int deltaX = Math.abs(x - targetX);
 		int deltaY = Math.abs(y - targetY);
 		
+		
+		/*
+		 * Edit 06.03.2021
+		 * 
+		 * alternative calculation: squared distances (pythagoras)
+		 *
+		 */
+		
+		
+		
+		
 		int deltaDeltas = Math.abs(deltaY - deltaX);
 		
 		if(deltaX == 0 || deltaY == 0) {
@@ -92,6 +111,12 @@ class Tile implements Comparable<Tile>{
 					deltaX * DIAGONAL_DISTANCE + deltaDeltas * HORIZONTAL_VERTICAL_DISTANCE :
 						deltaY * DIAGONAL_DISTANCE + deltaDeltas * HORIZONTAL_VERTICAL_DISTANCE;
 		}
+		
+		
+		
+		
+		
+		
 	}
 	
 	
