@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.etienne0n.github.astar.Playground;
-import com.etienne0n.github.astar.Playgrounds;
 import com.etienne0n.github.mathutils.Constants;
+import com.etienne0n.github.playground.Playground;
+import com.etienne0n.github.playground.Playgrounds;
 import com.etienne0n.github.utils.BooleanFields;
 import com.etienne0n.github.values.Direction;
 
@@ -35,8 +35,23 @@ public class MainApp extends Application {
 
 	
 	// Boolean Field
-
-	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.getRandomField_20x12();
+	
+	/*
+	 * 
+	 * Specify a field here.
+	 * All the getRandomField methods will randomly create a maze of the given size.
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	
+	
+	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.getRandomField_45x20();
+	
+	
+	
+	
 	// CREATE A PLAYGROUND (needed for shortest paths)
 	private static final Playground PLAYGROUND = Playgrounds.generatePlayground(BOOLEAN_FIELD);
 	private static final int PLAYGROUND_WIDTH = PLAYGROUND.width();
@@ -58,7 +73,8 @@ public class MainApp extends Application {
 	private static final Sprite ROBOT_SPRITE = new Sprite(ROBOT_IMAGE);
 	private static final Sprite RED_CROSS_SPRITE = new Sprite(RED_CROSS_IMAGE);
 	private static final Sprite GREEN_CIRCLE_SPRITE = new Sprite(GREEN_CIRCLE_IMAGE);
-	private static final Sprite MENU_SPRITE = new Sprite(MENU_IMAGE, BOOLEAN_FIELD[0].length * Constants.SPRITE_STANDARD_WIDTH, MENU_HEIGHT);
+	private static final Sprite MENU_SPRITE = 
+			new Sprite(MENU_IMAGE, BOOLEAN_FIELD[0].length * Constants.SPRITE_STANDARD_WIDTH, MENU_HEIGHT);
 
 	// PICTURE SIZE
 	private static final int PICTURE_WIDTH = Constants.SPRITE_STANDARD_WIDTH;
@@ -98,7 +114,7 @@ public class MainApp extends Application {
 	private static final String STARTING_TEXT = "Select a starting grass field.";
 	private static final String TARGET_TEXT = "Now select a different grass field as the target.";
 	private static final String DRIVING_TEXT = "Robot is driving to the target...";
-	private static final String TARGET_REACHED = "Robot reached the target.";
+	private static final String TARGET_REACHED = "Robot reached the target. Close the window.";
 
 	public static void main(String... args) {
 		launch(args);

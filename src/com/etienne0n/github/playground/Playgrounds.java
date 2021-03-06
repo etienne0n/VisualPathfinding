@@ -1,4 +1,4 @@
-package com.etienne0n.github.astar;
+package com.etienne0n.github.playground;
 /**
  * A factory class for instances of Playground.
  * @author Etienne Onasch

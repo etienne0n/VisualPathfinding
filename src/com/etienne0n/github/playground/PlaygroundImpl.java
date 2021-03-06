@@ -1,4 +1,4 @@
-package com.etienne0n.github.astar;
+package com.etienne0n.github.playground;
 
 import java.util.ArrayList;
 import java.util.List;

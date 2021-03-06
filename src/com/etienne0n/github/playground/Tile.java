@@ -1,4 +1,4 @@
-package com.etienne0n.github.astar;
+package com.etienne0n.github.playground;
 
 
 import static com.etienne0n.github.mathutils.Constants.HORIZONTAL_VERTICAL_DISTANCE;

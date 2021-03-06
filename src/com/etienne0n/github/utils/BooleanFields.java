@@ -3,8 +3,8 @@ package com.etienne0n.github.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.etienne0n.github.astar.Playground;
-import com.etienne0n.github.astar.Playgrounds;
+import com.etienne0n.github.playground.Playground;
+import com.etienne0n.github.playground.Playgrounds;
 
 /**
  * A utility class for 2D boolean arrays.<br>
@@ -240,7 +240,12 @@ public final class BooleanFields {
 	public static final boolean[][] getRandomField_20x12(){
 		return getRandomField(12,20);
 	}
-	
+	/**
+	 * For a resolution of 1920x1080
+	 */
+	public static final boolean[][] getRandomField_45x20(){
+		return getRandomField(20,45);
+	}
 	
 
 	private static final boolean[][] getRandomField(int rows, int columns) {

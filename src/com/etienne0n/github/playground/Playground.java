@@ -1,4 +1,4 @@
-package com.etienne0n.github.astar;
+package com.etienne0n.github.playground;
 
 import java.util.List;
 
@@ -53,7 +53,7 @@ public interface Playground {
 	 */
 	public List<Integer[]> shortestPath(int row1, int col1, int row2, int col2);
 	/**
-	 * Calculates if there is a path between two coordinates with the A*-Algorithem.
+	 * Calculates if there is a path between two coordinates with the A*-Algorithm.
 	 * @param row1 the row of the first coordinate
 	 * @param col1 the column of the first coordinate
 	 * @param row2 the row of the second coordinate
