@@ -93,7 +93,7 @@ class Tile implements Comparable<Tile>{
 		/*
 		 * Edit 06.03.2021
 		 * 
-		 * alternative calculation: squared distances
+		 * alternative calculation: squared distances OR just deltaX+deltaY
 		 *
 		 */
 		

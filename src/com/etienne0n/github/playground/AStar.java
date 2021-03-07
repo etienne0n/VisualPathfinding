@@ -53,7 +53,7 @@ class AStar{
 		return false;
 	}
 	
-	private void expandTile(Tile predecessor){
+	private void expandTile(Tile predecessor){ 
 		
 		int xTile = predecessor.getX();
 		int yTile = predecessor.getY();

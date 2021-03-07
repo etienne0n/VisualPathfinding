@@ -315,29 +315,29 @@ public final class BooleanFields {
 			// Additional constraint *************************************************************************
 	
 			// All possible diagonal neighbors
-			int no = nextBlock - columns + 1;
+			int ne = nextBlock - columns + 1;
 			int nw = nextBlock - columns - 1;
-			int so = nextBlock + columns + 1;
+			int se = nextBlock + columns + 1;
 			int sw = nextBlock + columns - 1;
 			
 			// All possible non-diagonal neighbors
 			
 			int n = nextBlock - columns;
 			int s = nextBlock + columns;
-			int o = nextBlock + 1;
+			int e = nextBlock + 1;
 			int w = nextBlock - 1;
 			
 			
 			noDiagonalsConstraint = (surroundingFalseCells.isEmpty())
 					|| (
-					(surroundingFalseCells.contains(no) ? surroundingFalseCells.contains(n) || surroundingFalseCells.contains(o) : 
-								!surroundingFalseCells.contains(no)) 
+					(surroundingFalseCells.contains(ne) ? surroundingFalseCells.contains(n) || surroundingFalseCells.contains(e) : 
+								!surroundingFalseCells.contains(ne)) 
 					&&
 					(surroundingFalseCells.contains(nw) ? surroundingFalseCells.contains(n) || surroundingFalseCells.contains(w) : 
 								!surroundingFalseCells.contains(nw)) 
 					&&
-					(surroundingFalseCells.contains(so) ? surroundingFalseCells.contains(s) || surroundingFalseCells.contains(o) : 
-								!surroundingFalseCells.contains(so)) 
+					(surroundingFalseCells.contains(se) ? surroundingFalseCells.contains(s) || surroundingFalseCells.contains(e) : 
+								!surroundingFalseCells.contains(se)) 
 					&&
 					(surroundingFalseCells.contains(sw) ? surroundingFalseCells.contains(s) || surroundingFalseCells.contains(w) : 
 								!surroundingFalseCells.contains(sw))
