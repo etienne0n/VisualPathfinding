@@ -93,11 +93,9 @@ class Tile implements Comparable<Tile>{
 		/*
 		 * Edit 06.03.2021
 		 * 
-		 * alternative calculation: squared distances (pythagoras)
+		 * alternative calculation: squared distances
 		 *
 		 */
-		
-		
 		
 		
 		int deltaDeltas = Math.abs(deltaY - deltaX);

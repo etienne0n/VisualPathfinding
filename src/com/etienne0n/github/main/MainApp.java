@@ -47,7 +47,7 @@ public class MainApp extends Application {
 	 */
 	
 	
-	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.getRandomField_45x20();
+	private static final boolean[][] BOOLEAN_FIELD = BooleanFields.getRandomField_60x30();
 	
 	
 	
@@ -56,8 +56,9 @@ public class MainApp extends Application {
 	private static final Playground PLAYGROUND = Playgrounds.generatePlayground(BOOLEAN_FIELD);
 	private static final int PLAYGROUND_WIDTH = PLAYGROUND.width();
 	private static final int PLAYGROUND_HEIGHT = PLAYGROUND.height();
-	
-	private static final int MENU_HEIGHT = (int) (Constants.SPRITE_STANDARD_HEIGHT * 1.2);
+
+	private static final double MENU_MULTIPLICATOR = 2.0;
+	private static final int MENU_HEIGHT = (int) (Constants.SPRITE_STANDARD_HEIGHT * MENU_MULTIPLICATOR);
 	
 	// IMAGES
 
@@ -141,11 +142,11 @@ public class MainApp extends Application {
 		GraphicsContext selectionGC = selectionCanvas.getGraphicsContext2D();
 
 		// Menu Font
-		Font menuFont = Font.font("Consolas", FontWeight.BOLD, Constants.SPRITE_STANDARD_HEIGHT / 3);
+		Font menuFont = Font.font("Consolas", FontWeight.MEDIUM, MENU_HEIGHT / 3);
 		textGC.setFill(Color.GREEN);
 		textGC.setFont(menuFont);
 		textGC.setStroke(Color.BLACK);
-		textGC.setLineWidth(1.1);
+		textGC.setLineWidth(1.0);
 
 		// Drawing the field into the canvas
 		drawingBooleanField(BOOLEAN_FIELD, backgroundGC);

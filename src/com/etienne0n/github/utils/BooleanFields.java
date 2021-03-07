@@ -241,40 +241,55 @@ public final class BooleanFields {
 		return getRandomField(12,20);
 	}
 	/**
-	 * For a resolution of 1920x1080
+	 * For a resolution of 1920x1080 and SPRITE_STANDARD_HEIGHT = 42 
+	 * (mathutils.Constants)
 	 */
 	public static final boolean[][] getRandomField_45x20(){
 		return getRandomField(20,45);
 	}
 	
-
+	public static final boolean[][] getRandomField_60x30(){
+		return getRandomField(30,60);
+	}
+	
+	/*
+	 * Creation of a random field with usage of the astar algorithm
+	 */
 	private static final boolean[][] getRandomField(int rows, int columns) {
-		assert (BIAS >= 0 && BIAS <= 1.0);
+//		assert (BIAS >= 0 && BIAS <= 1.0); 
 		
 		boolean noDiagonalsConstraint = false;
 		
-		// Numbers of fields that are already in use!
-		// n = columns * y-value + x-value
+		// Numbers of fields that are already in use, or must not be used.
 		List<Integer> usedOrForbidden = new ArrayList<>();
 
+		// init the field with only 'grass'
 		boolean[][] field = new boolean[rows][columns];
 		for(int r = 0; r < rows; r++) {
 			for(int c = 0; c < columns; c++) {
-				field[r][c] = true;
+				field[r][c] = true; 
 			}
 		}
 		
 	
 		int fields = rows * columns;
-		// number of blocks := false cells is 1/3 of rows * columns
-		int blocks = fields / DIVISOR; // "(Integer)" (128 / 3) = 42
+		// number of blocks := false cells is 1/Divisor of rows * columns. False cells are 'walls'.
+		int blocks = fields / DIVISOR; 
 		
 		blocks:
 		while (blocks > 0) {
 			
 			int nextBlock;
+			
 
 			do {
+				// a random block
+				/*
+				 * Idea: 
+				 * 
+				 * 
+				 */
+			
 				nextBlock = (int) (Math.random() * (fields - 1 + BIAS));
 				
 			} while (usedOrForbidden.contains(nextBlock));
@@ -482,7 +497,7 @@ public final class BooleanFields {
 		return surroundingTrueCells(cellNumber % field[0].length, cellNumber / field[0].length, field);
 	}
 
-	private static final List<Integer> surroundingCells(int x, int y, boolean[][] field, boolean trueOrFalse) {
+	private static final List<Integer> surroundingCells(int x, int y, boolean[][] field, boolean cellValue) {
 		List<Integer> cellNumbers = new ArrayList<>();
 		// fieldsize
 		int height = field.length; // rows
@@ -504,7 +519,7 @@ public final class BooleanFields {
 				
 				// not same cell
 				if (r != y || c != x) {
-					if (field[r][c] == trueOrFalse) {
+					if (field[r][c] == cellValue) {
 						cellNumbers.add(width * r + c);
 					}
 				}
