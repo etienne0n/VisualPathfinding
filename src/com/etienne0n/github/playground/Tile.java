@@ -81,6 +81,10 @@ class Tile implements Comparable<Tile>{
 		hDistance = Constants.INITIAL_DISTANCE;
 		gDistance = Constants.INITIAL_DISTANCE;
 	}
+	/**
+	 * Heuristic
+	 * @param target the other Tile
+	 */
 	public void setHDistanceTo(Tile target) {
 		
 		int targetX = target.getX();
@@ -91,27 +95,30 @@ class Tile implements Comparable<Tile>{
 		
 		
 		/*
-		 * Edit 06.03.2021
-		 * 
-		 * alternative calculation: squared distances OR just deltaX+deltaY
-		 *
+		 * Just get rid of the constants and use squared distances (with implicit tile-length of 1).
+		 * !!!(gDistance must be squared as well or the specification of A* will be violated)!!!
+		 * Alternative 2: use regular pythagoras, but it is much better to avoid prolonged squareroot calculations.
 		 */
 		
-		
-		int deltaDeltas = Math.abs(deltaY - deltaX);
-		
-		if(deltaX == 0 || deltaY == 0) {
-			hDistance = (deltaX + deltaY) * HORIZONTAL_VERTICAL_DISTANCE;
-		}else if(deltaX == deltaY) {
-			hDistance = deltaX * DIAGONAL_DISTANCE;
-		}else {
-			hDistance = deltaX < deltaY ? 
-					deltaX * DIAGONAL_DISTANCE + deltaDeltas * HORIZONTAL_VERTICAL_DISTANCE :
-						deltaY * DIAGONAL_DISTANCE + deltaDeltas * HORIZONTAL_VERTICAL_DISTANCE;
-		}
-		
+//		int deltaDeltas = Math.abs(deltaY - deltaX);
+//		
+//		if(deltaX == 0 || deltaY == 0) {
+//			hDistance = (deltaX + deltaY) * HORIZONTAL_VERTICAL_DISTANCE;
+//		}else if(deltaX == deltaY) {
+//			hDistance = deltaX * DIAGONAL_DISTANCE;
+//		}else {
+//			hDistance = deltaX < deltaY ? 
+//					deltaX * DIAGONAL_DISTANCE + deltaDeltas * HORIZONTAL_VERTICAL_DISTANCE :
+//						deltaY * DIAGONAL_DISTANCE + deltaDeltas * HORIZONTAL_VERTICAL_DISTANCE;
+//		}
 		
 		
+		/*
+		 * Alternative 3: Manhattan distance with implicit tile-length of 1. gDistance already adjusted.
+		 */
+		
+		hDistance = deltaX + deltaY;
+	
 		
 		
 		

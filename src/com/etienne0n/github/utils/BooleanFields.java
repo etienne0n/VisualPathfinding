@@ -255,10 +255,14 @@ public final class BooleanFields {
 	/*
 	 * Creation of a random field with usage of the astar algorithm
 	 */
+	/**
+	 * Procedural field generation of a given size
+	 * @param rows the number of rows
+	 * @param columns the number of columns
+	 * @return a boolean 2D array (used semantics: false := 'wall'; true := 'grass')
+	 */
 	private static final boolean[][] getRandomField(int rows, int columns) {
 //		assert (BIAS >= 0 && BIAS <= 1.0); 
-		
-		boolean noDiagonalsConstraint = false;
 		
 		// Numbers of fields that are already in use, or must not be used.
 		List<Integer> usedOrForbidden = new ArrayList<>();
@@ -276,22 +280,20 @@ public final class BooleanFields {
 		// number of blocks := false cells is 1/Divisor of rows * columns. False cells are 'walls'.
 		int blocks = fields / DIVISOR; 
 		
-		blocks:
+		blocks: // very oldschool java.
 		while (blocks > 0) {
 			
 			int nextBlock;
 			
 
 			do {
-				// a random block
-				/*
-				 * Idea: 
-				 * 
-				 * 
-				 */
-			
-				nextBlock = (int) (Math.random() * (fields - 1 + BIAS));
 				
+				nextBlock = (int) (Math.random() * (fields - 1 + BIAS));
+				/*
+				 * Try until constraint is met. 
+				 * In this case it always terminates but it is not cost efficient!
+				 * Idea: Datastructure only with allowed cells that get updated every circle.
+				 */
 			} while (usedOrForbidden.contains(nextBlock));
 		
 			/*
@@ -309,43 +311,61 @@ public final class BooleanFields {
 			// get surrounding true cells
 
 			List<Integer> surroundingTrueCells = surroundingTrueCells(nextBlockX, nextBlockY, field);
-			List<Integer> surroundingFalseCells = surroundingFalseCells(nextBlockX, nextBlockY, field);
+			
 			
 			
 			// Additional constraint *************************************************************************
-	
-			// All possible diagonal neighbors
-			int ne = nextBlock - columns + 1;
-			int nw = nextBlock - columns - 1;
-			int se = nextBlock + columns + 1;
-			int sw = nextBlock + columns - 1;
-			
-			// All possible non-diagonal neighbors
-			
-			int n = nextBlock - columns;
-			int s = nextBlock + columns;
-			int e = nextBlock + 1;
-			int w = nextBlock - 1;
 			
 			
-			noDiagonalsConstraint = (surroundingFalseCells.isEmpty())
-					|| (
-					(surroundingFalseCells.contains(ne) ? surroundingFalseCells.contains(n) || surroundingFalseCells.contains(e) : 
-								!surroundingFalseCells.contains(ne)) 
-					&&
-					(surroundingFalseCells.contains(nw) ? surroundingFalseCells.contains(n) || surroundingFalseCells.contains(w) : 
-								!surroundingFalseCells.contains(nw)) 
-					&&
-					(surroundingFalseCells.contains(se) ? surroundingFalseCells.contains(s) || surroundingFalseCells.contains(e) : 
-								!surroundingFalseCells.contains(se)) 
-					&&
-					(surroundingFalseCells.contains(sw) ? surroundingFalseCells.contains(s) || surroundingFalseCells.contains(w) : 
-								!surroundingFalseCells.contains(sw))
-					);
-			if(!noDiagonalsConstraint) {continue;}
+			// Use this if you dont want constructions like this:
+			// [T][F]
+			// [F][T]
+			// but only like this:
+			// [T][F] 
+			// [F][F] 
+			// (walls must not touch only at their corners)
+			// current implementation works but is not cost efficient.
+
+
+			
+			
+//			// get surrounding false cells			
+//			List<Integer> surroundingFalseCells = surroundingFalseCells(nextBlockX, nextBlockY, field);
+//			// All possible diagonal neighbors
+//			int ne = nextBlock - columns + 1;
+//			int nw = nextBlock - columns - 1;
+//			int se = nextBlock + columns + 1;
+//			int sw = nextBlock + columns - 1;
+//			
+//			// All possible non-diagonal neighbors
+//			
+//			int n = nextBlock - columns;
+//			int s = nextBlock + columns;
+//			int e = nextBlock + 1;
+//			int w = nextBlock - 1;
+//			
+//
+//			boolean noDiagonalsConstraint = (surroundingFalseCells.isEmpty())
+//					|| (		
+//					(surroundingFalseCells.contains(ne) ? surroundingFalseCells.contains(n) || surroundingFalseCells.contains(e) : true)
+//					&&
+//					(surroundingFalseCells.contains(nw) ? surroundingFalseCells.contains(n) || surroundingFalseCells.contains(w) : true)
+//					&&
+//					(surroundingFalseCells.contains(se) ? surroundingFalseCells.contains(s) || surroundingFalseCells.contains(e) : true) 
+//					&&
+//					(surroundingFalseCells.contains(sw) ? surroundingFalseCells.contains(s) || surroundingFalseCells.contains(w) : true)
+//					);
+//			if(!noDiagonalsConstraint) {
+//				continue;
+//			}
+			
+			
+			
+			
 			//************************************************************************************************
 			
-			// is there a path between all those cells?
+			// is there a path between all those true cells that are separated by nextBlock? 
+			// this ensures the main constraint: all grass tiles (true cells) must be reachable from each other!
 
 			// is there more than one surrounding true cell?
 			boolean path = true;
@@ -373,7 +393,7 @@ public final class BooleanFields {
 
 						path = false;
 						usedOrForbidden.add(columns * nextBlockY + nextBlockX);
-						continue blocks;
+						continue blocks; // very oldschool java.
 						
 					}
 				} 
@@ -529,22 +549,22 @@ public final class BooleanFields {
 		return cellNumbers;
 	}
 
-	public static void main(String[] args) {
-		boolean[][] field = { { false, true, false }, { true, false, true }, { false, true, false } };
-
-		int cellNumber = 4;
-
-		List<Integer> trueCellNumbers = surroundingTrueCells(cellNumber, field);
-		List<Integer> falseCellNumbers = surroundingFalseCells(cellNumber, field);
-		System.out.println("surrounding true cells:");
-		for (Integer i : trueCellNumbers) {
-			System.out.println("[x:" + i % field[0].length + ",y:" + i / field[0].length + "]");
-		}
-		System.out.println("surrounding false cells:");
-		for (Integer i : falseCellNumbers) {
-			System.out.println("[x:" + i % field[0].length + ",y:" + i / field[0].length + "]");
-		}
-
-	}
+//	public static void main(String[] args) {
+//		boolean[][] field = { { false, true, false }, { true, false, true }, { false, true, false } };
+//
+//		int cellNumber = 4;
+//
+//		List<Integer> trueCellNumbers = surroundingTrueCells(cellNumber, field);
+//		List<Integer> falseCellNumbers = surroundingFalseCells(cellNumber, field);
+//		System.out.println("surrounding true cells:");
+//		for (Integer i : trueCellNumbers) {
+//			System.out.println("[x:" + i % field[0].length + ",y:" + i / field[0].length + "]");
+//		}
+//		System.out.println("surrounding false cells:");
+//		for (Integer i : falseCellNumbers) {
+//			System.out.println("[x:" + i % field[0].length + ",y:" + i / field[0].length + "]");
+//		}
+//
+//	}
 
 }

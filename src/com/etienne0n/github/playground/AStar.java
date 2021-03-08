@@ -54,7 +54,7 @@ class AStar{
 	}
 	
 	private void expandTile(Tile predecessor){ 
-		
+	
 		int xTile = predecessor.getX();
 		int yTile = predecessor.getY();
 		
@@ -69,13 +69,16 @@ class AStar{
 				boolean sameTile = y == yTile && x == xTile;
 				boolean diagonal = y != yTile && x != xTile;
 				
-				if(diagonal || sameTile || field[y][x] == null) {continue;}
+				
+				if(diagonal || sameTile || field[y][x] == null) {continue;} // if diagonal is forbidden: 9 iterations, but only 4 uses!
 				
 			
 				if(!closedList.contains(field[y][x])) {
 					Tile tile = field[y][x];
 					
-					int tentativeG = predecessor.getGDistance() + (diagonal ? DIAGONAL_DISTANCE : HORIZONTAL_VERTICAL_DISTANCE);
+					
+//					int tentativeG = predecessor.getGDistance() + (diagonal ? DIAGONAL_DISTANCE : HORIZONTAL_VERTICAL_DISTANCE);
+					int tentativeG = predecessor.getGDistance(); // no diagonal expansion. The implicit length of one cell is 1. 
 					
 					if(openList.contains(tile) && tentativeG >= tile.getGDistance()) {
 						continue;
@@ -100,12 +103,4 @@ class AStar{
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-
 }
