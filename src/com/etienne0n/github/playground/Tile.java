@@ -87,11 +87,11 @@ class Tile implements Comparable<Tile>{
 	 */
 	public void setHDistanceTo(Tile target) {
 		
-		int targetX = target.getX();
-		int targetY = target.getY();
-		
-		int deltaX = Math.abs(x - targetX);
-		int deltaY = Math.abs(y - targetY);
+//		int targetX = target.getX();
+//		int targetY = target.getY();
+//		
+//		int deltaX = Math.abs(x - targetX);
+//		int deltaY = Math.abs(y - targetY);
 		
 		
 		/*
@@ -117,7 +117,7 @@ class Tile implements Comparable<Tile>{
 		 * Alternative 3: Manhattan distance with implicit tile-length of 1. gDistance already adjusted.
 		 */
 		
-		hDistance = deltaX + deltaY;
+		hDistance = Math.abs(x - target.getX()) + Math.abs(y - target.getY());
 	
 		
 		
